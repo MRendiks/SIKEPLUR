@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cuti;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,10 @@ class DashboardCutiController extends Controller
         $cuti = Cuti::select('cuti.id'  ,'cuti.nik', 'users.nama_pegawai', 'cuti.jabatan', 'cuti.jenis_cuti', 'cuti.jumlah_hari_cuti', 'cuti.tanggal_mulai', 'cuti.tanggal_akhir', 'cuti.status')
         	->join('users', 'users.id', '=', 'cuti.pegawaiId')
         	->get();
-        return view('dashboard.cuti.datacuti', ['datacuti' => $cuti]);
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName(); 
+        $dataUser   = User::find($userId);
+        return view('dashboard.cuti.datacuti', ['datacuti' => $cuti, 'userName'=>$userName, 'dataUser'=>$dataUser]);
     }
 
     public function cetak_cuti()
@@ -21,7 +25,10 @@ class DashboardCutiController extends Controller
         $data_cuti = Cuti::select('cuti.id'  ,'cuti.nik', 'users.nama_pegawai', 'cuti.jabatan', 'cuti.jenis_cuti', 'cuti.jumlah_hari_cuti', 'cuti.tanggal_mulai', 'cuti.tanggal_akhir', 'cuti.status')
         	->join('users', 'users.id', '=', 'cuti.pegawaiId')
         	->get();
-        return view('dashboard.cuti.laporan_cetak', compact('data_cuti'));
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName(); 
+        $dataUser   = User::find($userId);
+        return view('dashboard.cuti.laporan_cetak', compact('data_cuti', 'userName', 'dataUser'));
     }
 
     public function cetak_cuti_karyawan($id)
@@ -30,7 +37,10 @@ class DashboardCutiController extends Controller
         	->join('users', 'users.id', '=', 'cuti.pegawaiId')
             ->where('cuti.id', '=', $id)
         	->get();
-        return view('dashboard.cuti.laporan_cetak_perkaryawan', compact('data_cuti'));
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName();
+        $dataUser   = User::find($userId); 
+        return view('dashboard.cuti.laporan_cetak_perkaryawan', compact('data_cuti','userName', 'dataUser'));
     }
 
     public function diproses()
@@ -39,7 +49,10 @@ class DashboardCutiController extends Controller
         	->join('users', 'users.id', '=', 'cuti.pegawaiId')
             ->where('cuti.status', 'diproses')
         	->get();
-        return view('dashboard.cuti.datacuti_olah', ['datacuti' => $cuti]);
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName(); 
+        $dataUser   = User::find($userId);
+        return view('dashboard.cuti.datacuti_olah', ['datacuti' => $cuti, 'userName' => $userName, 'dataUser' => $dataUser]);
     }
 
     public function ditolak()
@@ -48,7 +61,10 @@ class DashboardCutiController extends Controller
         	->join('users', 'users.id', '=', 'cuti.pegawaiId')
             ->where('cuti.status', 'ditolak')
         	->get();
-        return view('dashboard.cuti.datacuti_olah', ['datacuti' => $cuti]);
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName(); 
+        $dataUser   = User::find($userId);
+        return view('dashboard.cuti.datacuti_olah', ['datacuti' => $cuti, 'userName'=>$userName, 'dataUser'=>$dataUser]);
     }
 
     public function diterima()
@@ -60,7 +76,10 @@ class DashboardCutiController extends Controller
         foreach ($cuti as $item) {
             $item['tanggal_mulai'];
         }
-        return view('dashboard.cuti.datacuti_olah', ['datacuti' => $cuti]);
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName(); 
+        $dataUser   = User::find($userId);
+        return view('dashboard.cuti.datacuti_olah', ['datacuti' => $cuti,'userName'=>$userName, 'dataUser'=>$dataUser]);
     }
 
     public function add()
@@ -72,7 +91,13 @@ class DashboardCutiController extends Controller
         // dd($data_cuti);
         $minDate = Carbon::now();
         $minDate = $minDate->toDateString();
-        return view('dashboard.cuti.addcuti', compact('data_cuti', 'minDate'));
+        $maxDate = Carbon::now();
+        $maxDate = $maxDate->addDays(3);
+        $maxDate = $maxDate->toDateString();
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName(); 
+        $dataUser   = User::find($userId);
+        return view('dashboard.cuti.addcuti', compact('data_cuti', 'minDate', 'maxDate','userName','dataUser'));
     }
 
 

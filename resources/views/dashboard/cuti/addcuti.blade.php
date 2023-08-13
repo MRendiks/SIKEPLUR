@@ -33,8 +33,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-sm-3">Akhir Cuti</label>
                                             
-                                                <input type="date" name="tanggal_akhir" min="{{$minDate}}" class="form-control" required>
-                                          
+                                                <input type="date" name="tanggal_akhir" min="{{$minDate}}" max="{{$maxDate}}" class="form-control" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label col-sm-3">Jenis Cuti</label>

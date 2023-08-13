@@ -48,5 +48,21 @@ class UserSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+        DB::table('users')->insert([
+            'jabatanID' => 3,
+            'email' => "tugiono@gmail.com",
+            'password' => Hash::make('tugiono'),
+            'nik' => '3403012812540001',
+            'nama_pegawai' => 'TUGINO, S.Pd',
+            'jenis_kelamin' => 'Laki-laki',
+            'tempat_tanggal_lahir' => 'Gunung Kidul, 28-12-1954',
+            'telpon' => '089670128440',
+            'agama' => 'Islam',
+            'alamat' => 'Trini Trihanggo',
+            'pendidikan' => 'S I/A IV',
+            'level' => 'pegawai',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 }

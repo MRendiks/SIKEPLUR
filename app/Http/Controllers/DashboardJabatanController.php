@@ -13,8 +13,10 @@ class DashboardJabatanController extends Controller
         $jabatan = Jabatan::select('jabatan.id', 'jabatan.no_pengangkatan', 'users.nama_pegawai', 'jabatan.jabatan', 'jabatan.pendidikan')
         ->join('users', 'users.id', '=', 'jabatan.pegawaiId')
         ->get();
-        
-        return view('dashboard.jabatan.data-jabatan', ['datajabatan' => $jabatan]);
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName(); 
+        $dataUser   = User::find($userId);
+        return view('dashboard.jabatan.data-jabatan', ['datajabatan' => $jabatan, 'userName'=>$userName, 'dataUser'=>$dataUser]);
     }
 
     public function cetak_jabatan(Request $request)
@@ -22,14 +24,20 @@ class DashboardJabatanController extends Controller
         $jabatan = Jabatan::select('jabatan.id', 'jabatan.no_pengangkatan', 'users.nama_pegawai', 'jabatan.jabatan', 'jabatan.pendidikan')
         ->join('users', 'users.id', '=', 'jabatan.pegawaiId')
         ->get();
-
-        return view('dashboard.jabatan.laporan_cetak', compact('jabatan'));
+        $userName   = getAuthenticatedUserName(); 
+        $userId     = getAuthenticatedUserId();
+        $dataUser   = User::find($userId);
+        return view('dashboard.jabatan.laporan_cetak', compact('jabatan','userName','dataUser'));
     }
 
     public function add()
     {
         $pegawai = User::get();
-        return view('dashboard.jabatan.addjabatan', );
+        $jabatan = Jabatan::get();
+        $userId     = getAuthenticatedUserId();
+        $userName   = getAuthenticatedUserName(); 
+        $dataUser   = User::find($userId);
+        return view('dashboard.jabatan.addjabatan', compact('pegawai', 'jabatan','userName', 'dataUser'));
     }
     public function store(Request $request)
     {
@@ -64,7 +72,10 @@ class DashboardJabatanController extends Controller
         // return view('admin.supplier.editsupplier');
         $jabatan= jabatan::find($id);
         $users = User::get();
-        return view('dashboard.jabatan.editjabatan', compact('jabatan', 'users'));
+        $userName   = getAuthenticatedUserName(); 
+        $userId     = getAuthenticatedUserId();
+        $dataUser   = User::find($userId);
+        return view('dashboard.jabatan.editjabatan', compact('jabatan', 'users','userName','dataUser'));
     }
     public function update(Request $request, $id)
     {

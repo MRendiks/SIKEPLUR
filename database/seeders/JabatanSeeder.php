@@ -31,5 +31,14 @@ class JabatanSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
+        DB::table('jabatan')->insert([
+            'pegawaiId' => 3,
+            'no_pengangkatan' => 'NP03',
+            'jabatan' => 'Lurah',
+            'pendidikan' => 'S I/A IV',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
     }
 }

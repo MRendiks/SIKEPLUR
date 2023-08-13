@@ -24,29 +24,42 @@
                             </div>
                             <div class="mb-4">
                                 <label for="nama_pegawai" class="form-label">Nama Pegawai</label>
-                                <input type="text" class="form-control" id="nama_pegawai" name="nama_pegawai"
-                                value="{{ old('nama_pegawai') }}" />
+                                <select name="nama_pegawai" id="nama_pegawai" class="form-control">
+                                    <option value="">- SILAHKAN PILIH PEGAWAI -</option>
+                                    @foreach ($pegawai as $item)
+                                        <option value="{{$item->id}}">{{$item->nama_pegawai}}</option>
+                                    @endforeach
+                                </select>
                                 @error('nama_pegawai')
                                     <small class="text-danger mt-2">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <label for="Jabatan" class="form-label">Jabatan</label>
-                                <input type="text" class="form-control" id="Jabatan" name="Jabatan"
-                                value="{{ old('jabatan') }}" />
-                                @error('Jabatan')
+                                <label for="jabatan" class="form-label">Jabatan</label>
+                                <select name="jabatan" id="jabatan" class="form-control">
+                                    <option value="">- SILAHKAN PILIH JABATAN -</option>
+                                    @foreach ($jabatan as $item)
+                                        <option value="{{$item->jabatan}}">{{$item->jabatan}}</option>
+                                    @endforeach
+                                </select>
+                                @error('jabatan')
                                     <small class="text-danger mt-2">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <label for="pendidikan">Pendidikan</label>
-                                    <input class="form-control" 
-                                    type="text" 
-                                    name="pendidikan" 
-                                    value="{{ old('pendidikan') }}">
-                                    @error('pendidikan')
-                                        <small class="text-danger mt-2">{{ $message }}</small>
-                                    @enderror
+                                <label for="input-pendidikan">pendidikan</label><br>
+                                <select name="pendidikan" class="form-control">
+                                    <option value="">- PILIH PENDIDIKAN -</option>
+                                    <option value="SD">SD</option>
+                                    <option value="SMP">SMP</option>
+                                    <option value="SMA">SMA</option>
+                                    <option value="S1">S1</option>
+                                    <option value="S2">S2</option>
+                                    <option value="S3">S3</option>
+                                </select>
+                                @error('pendidikan')
+                                    <small class="text-danger mt-2">{{ $message }}</small>
+                                @enderror
                             </div>
                             
                             <div>

@@ -28,13 +28,37 @@
               <i class="fa-solid fa-rectangle-list"></i> Data Pengajuan Cuti
             </a>
           </li>
-         
-          @else
           <li class="nav-item">
-            <a class="nav-link {{Request::is('addcuti') ? 'active' : ''}}" href="addcuti">
+            <a class="nav-link {{Request::is('data-absen') ? 'active' : ''}}" href="data-absen">
+              <span data-feather="book" class="align-text-bottom"></span>
+              <i class="fa-solid fa-users"></i> Data Absen
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{Request::is('data-gaji') ? 'active' : ''}}" href="data-gaji">
+              <span data-feather="book" class="align-text-bottom"></span>
+              <i class="fa-solid fa-users"></i> Data Gaji
+            </a>
+          </li>
+
+          @else
+            <li class="nav-item">
+              <a class="nav-link {{Request::is('addabsen') ? 'active' : ''}}" href="addabsen">
+                  <span data-feather="users" class="align-text-bottom"></span>
+                  <i class="fa-solid fa-mailbox"></i> Absensi
+                </a>
+            </li>
+            <li>
+              <a class="nav-link {{Request::is('data_absen_user') ? 'active' : ''}}" href="data_absen_user">
                 <span data-feather="users" class="align-text-bottom"></span>
-                <i class="fa-solid fa-mailbox"></i> Pengajuan Cuti
+                <i class="fa-solid fa-mailbox"></i> Data Abseni
               </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{Request::is('addcuti') ? 'active' : ''}}" href="addcuti">
+                  <span data-feather="users" class="align-text-bottom"></span>
+                  <i class="fa-solid fa-mailbox"></i> Pengajuan Cuti
+                </a>
             </li>
             <li class="nav-item">
               <a class="nav-link {{Request::is('cuti-approval') ? 'active' : ''}}" href="cuti-approval">
@@ -54,9 +78,15 @@
                   <i class="fa-solid fa-badge-check"></i> Data Cuti Diterima
                 </a>
             </li>
+            <li>
+              <a class="nav-link {{Request::is('data_gaji_user') ? 'active' : ''}}" href="data_gaji_user">
+                <span data-feather="users" class="align-text-bottom"></span>
+                <i class="fa-solid fa-mailbox"></i> Data Gaji
+              </a>
+            </li>
           @endif
+          
         </ul>
         
-       
       </div>
     </nav>

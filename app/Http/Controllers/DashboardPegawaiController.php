@@ -11,13 +11,28 @@ class DashboardPegawaiController extends Controller
 {
     public function index()
     {
+        $userName   = getAuthenticatedUserName(); 
+        $userId     = getAuthenticatedUserId();
+        $dataUser   = User::find($userId); 
         $pegawai = User::get();
-        return view('dashboard.pegawai.data-pegawai', ['datapegawai' => $pegawai]);
+        return view('dashboard.pegawai.data-pegawai', ['datapegawai' => $pegawai, 'userName' => $userName, 'dataUser'=>$dataUser]);
+    }
+
+    public function dashboard()
+    {
+        $userName   = getAuthenticatedUserName(); 
+        $userId     = getAuthenticatedUserId();
+        $dataUser   = User::find($userId);
+        $dataUser   = User::find($userId);
+        return view('dashboard.index', compact('userName', 'dataUser','dataUser'));
     }
 
     public function add()
     {
-        return view('dashboard.pegawai.addpegawai');
+        $userName   = getAuthenticatedUserName(); 
+        $userId     = getAuthenticatedUserId();
+        $dataUser   = User::find($userId);
+        return view('dashboard.pegawai.addpegawai', compact('userName','dataUser'));
     }
     public function store(Request $request)
     {
@@ -58,8 +73,10 @@ class DashboardPegawaiController extends Controller
     public function cetak_pegawai(Request $request)
     {
         $pegawai = User::get();
-
-        return view('dashboard.pegawai.laporan_cetak', compact('pegawai'));
+        $userName   = getAuthenticatedUserName(); 
+        $userId     = getAuthenticatedUserId();
+        $dataUser   = User::find($userId);
+        return view('dashboard.pegawai.laporan_cetak', compact('pegawai', 'userName','dataUser'));
     }
 
 
@@ -68,7 +85,10 @@ class DashboardPegawaiController extends Controller
         // return view('admin.supplier.editsupplier');
         $pegawai= User::find($id);
         $jabatan= Jabatan::get();
-        return view('dashboard.pegawai.editpegawai', compact('pegawai', 'jabatan'));
+        $userName   = getAuthenticatedUserName(); 
+        $userId     = getAuthenticatedUserId();
+        $dataUser   = User::find($userId);
+        return view('dashboard.pegawai.editpegawai', compact('pegawai', 'jabatan', 'userName','dataUser'));
     }
     public function update(Request $request, $id)
     {
