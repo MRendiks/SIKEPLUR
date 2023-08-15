@@ -18,7 +18,7 @@ class DashboardAbsenController extends Controller
         $userId     = getAuthenticatedUserId();
         $userName   = getAuthenticatedUserName(); 
         $dataUser   = User::find($userId);
-        return view('dashboard.absen.data-absen', compact('dataTable', 'userName'));
+        return view('dashboard.absen.data-absen', compact('dataTable', 'userName', 'dataUser'));
     }
     
     public function add_view()
